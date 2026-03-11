@@ -1,3 +1,5 @@
+package frontend
+
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Owner
 import org.example.frontend.constants.AVORONTSOVA
@@ -22,14 +24,14 @@ class FirstUiTest : BaseUiTest() {
     @Owner(AVORONTSOVA)
     @Test
     @DisplayName("Check MainPage Header UI")
-    fun checkHeaderTitles(){
+    fun checkHeaderTitles() {
         MainPage().header.checkHeaderUI()
     }
 
     @Owner(AVORONTSOVA)
     @Test
     @DisplayName("Check Products link")
-    fun checkHeaderLinks(){
+    fun checkHeaderLinks() {
         MainPage().header.clickLink("Products")
         ProductsPage().getTitle()
     }

@@ -13,7 +13,8 @@ open class BaseUiTest {
         Configuration.pageLoadStrategy = "normal"
         Configuration.reopenBrowserOnFail = true
 
-    }
+      //  Configuration.browser = DriverProvider::class.java.name
+        }
 
     @BeforeEach
     fun openBrowser() {
