@@ -1,4 +1,3 @@
-import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Owner
 import org.example.frontend.constants.AVORONTSOVA
@@ -22,13 +21,16 @@ class FirstUiTest : BaseUiTest() {
 
     @Owner(AVORONTSOVA)
     @Test
-    @DisplayName("Open navigation titles")
-    fun testNavigation() {
-        MainPage()
-            .header()
-            .clickLink("Products")
-        val products = ProductsPage()
-            .getProducts()
-        products.shouldHaveSize(0)
+    @DisplayName("Check MainPage Header UI")
+    fun checkHeaderTitles(){
+        MainPage().header.checkHeaderUI()
+    }
+
+    @Owner(AVORONTSOVA)
+    @Test
+    @DisplayName("Check Products link")
+    fun checkHeaderLinks(){
+        MainPage().header.clickLink("Products")
+        ProductsPage().getTitle()
     }
 }
