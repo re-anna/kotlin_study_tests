@@ -1,5 +1,6 @@
 package org.example.frontend.components
 
+import Extensions.Companion.getFirstOrAsserted
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide.elements
@@ -13,6 +14,7 @@ class HeaderComponent {
 
     @Step("Click on {name} link")
     fun clickLink(name: String): HeaderComponent {
+        linksHeader.getFirstOrAsserted(name)
         linksHeader.first{ it.text == name}.click()
         return this
     }
