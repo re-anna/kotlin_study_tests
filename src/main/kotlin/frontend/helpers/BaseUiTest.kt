@@ -12,7 +12,6 @@ open class BaseUiTest {
         Configuration.timeout = 15_000
         Configuration.pageLoadStrategy = "normal"
         Configuration.reopenBrowserOnFail = true
-
       //  Configuration.browser = DriverProvider::class.java.name
         }
 

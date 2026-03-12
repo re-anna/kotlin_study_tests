@@ -28,4 +28,10 @@ class HeaderComponent {
         assert(actualButtons == expectedButtons
         ){"Header buttons не совпадают, ожидались: $expectedButtons, получили: $actualButtons"}
     }
+
+    @Step("Получить список ссылок в шапке")
+    fun getLinks(): List<String> {
+        return linksHeader.map { it.text }
+    }
+
 }
