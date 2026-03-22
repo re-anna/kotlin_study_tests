@@ -1,11 +1,15 @@
 package org.example.general
 
+import tools.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.module.kotlin.readValue
+import java.io.File
 import java.util.Properties
 import kotlin.jvm.java
 
 object Config {
 
     private const val DEFAULT_PROP_FILE = "/example.properties"
+   private const val DEFAULT_JSON_FILE = "/example.json"
 
     data class Props(
         val browserName: String,
@@ -36,5 +40,14 @@ object Config {
             backendApiVersion = properties.getProperty("backend.api.version"),
             moonHost = properties.getProperty("moon.host")
         )
+    }
+
+    //загрузка из JSON
+    val fromJson: Props by lazy {
+        val fileName = System.getProperty("env_config_json") ?: DEFAULT_JSON_FILE
+        val stream = Config::class.java.getResourceAsStream(fileName)
+        ?: throw IllegalStateException("JSON file '$fileName' not found")
+
+        jacksonObjectMapper().readValue<Props>(stream)
     }
 }

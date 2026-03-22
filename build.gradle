@@ -35,6 +35,8 @@ test {
 dependencies {
     //JUnit
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '6.0.2'
+    implementation group: 'org.junit.platform', name: 'junit-platform-engine', version: '6.0.3'
+    implementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '6.0.3'
 
     // Frontend
     implementation group: 'com.codeborne', name: 'selenide', version: '7.14.0'
