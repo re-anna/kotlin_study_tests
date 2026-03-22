@@ -39,6 +39,11 @@ dependencies {
     // Frontend
     implementation group: 'com.codeborne', name: 'selenide', version: '7.14.0'
 
+    //Backend
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '3.0.0'
+    implementation group: 'tools.jackson.module', name: 'jackson-module-kotlin', version: '3.1.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '3.0-rc5'
+
     // Assert
     implementation group: 'io.kotest', name: 'kotest-assertions-core', version: '6.1.1'
 
