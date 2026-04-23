@@ -1,12 +1,13 @@
 package frontend.pages
 
-import com.codeborne.selenide.CollectionCondition
+import com.codeborne.selenide.CollectionCondition.sizeGreaterThan
 import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
-import frontend.helpers.Wrappers.Companion.byDataTestGroup
-import frontend.helpers.Wrappers.Companion.byDataTestId
+import frontend.helpers.Wrappers.byDataTestGroup
+import frontend.helpers.Wrappers.byDataTestId
 import io.qameta.allure.Step
 
 data class ProductData(
@@ -16,39 +17,29 @@ data class ProductData(
 )
 
 class ProductsPage {
-    val txtTitle: SelenideElement get() = element(byDataTestId("products-title"))
-    val listCards: ElementsCollection get() = elements(byDataTestGroup("product-card"))
-    val listItems get() = elements(byDataTestGroup("product-card-name"))
+    private val title: SelenideElement get() = element(byDataTestId("products-title"))
+    private val cards: ElementsCollection get() = elements(byDataTestGroup("product-card"))
+
+    fun getTitle(): String = title.text
 
     fun productName(card: SelenideElement) = card.find(byDataTestGroup("product-card-name"))
-    fun itemsDescription(card: SelenideElement) = card.find(byDataTestGroup("product-card-description"))
-    fun itemsPrice(card: SelenideElement) = card.find(byDataTestGroup("product-card-price"))
+    fun productDescription(card: SelenideElement) = card.find(byDataTestGroup("product-card-description"))
+    fun productPrice(card: SelenideElement) = card.find((byDataTestGroup("product-card-price")))
 
-    @Step("Get products page title")
-    fun getTitle(): String {
-        return txtTitle.text
+    @Step("Open Products Page")
+    fun open(): ProductsPage {
+        Selenide.open("/products")
+        return this
     }
 
-    @Step("Get products list from page")
-    fun getProductsItems(): ElementsCollection {
-        return listItems
-    }
-
-    @Step("Получить список продуктов[2]")
-    fun getProducts(): List<String> {
-        listItems.shouldHave(CollectionCondition.sizeGreaterThan(0))
-        return listItems.map { it.text }
-    }
-
-    @Step ("Получить информацию из карточек продуктов")
+    @Step ("Get products information")
     fun getProductsInfo(): List<ProductData> {
-        MainPage().header.clickLink("Products")
-        listCards.shouldHave(CollectionCondition.sizeGreaterThan(0))
-        return listCards.map { card ->
+        cards.shouldHave(sizeGreaterThan(0))
+        return cards.map { card ->
             ProductData(
-                name = productName(card).text,
-                description = itemsDescription(card).text,
-                price = itemsPrice(card).text
+                name = productName(card).text(),
+                description = productDescription(card).text(),
+                price = productPrice(card).text()
             )
         }
     }

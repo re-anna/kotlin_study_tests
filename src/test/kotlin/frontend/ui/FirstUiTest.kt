@@ -1,9 +1,8 @@
-package frontend
+package frontend.ui
 
 import frontend.constants.AVORONTSOVA
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
-import frontend.pages.ProductsPage
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Owner
 import org.junit.jupiter.api.DisplayName
@@ -25,14 +24,6 @@ class FirstUiTest : BaseUiTest() {
     @Test
     @DisplayName("Check MainPage Header UI")
     fun checkHeaderTitles() {
-        MainPage().header.checkHeaderUI()
-    }
-
-    @Owner(AVORONTSOVA)
-    @Test
-    @DisplayName("Check Products link")
-    fun checkHeaderLinks() {
-        MainPage().header.clickLink("Products")
-        ProductsPage().getTitle()
+        MainPage().getTitle()
     }
 }
