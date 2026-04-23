@@ -1,12 +1,12 @@
-package org.example.frontend.components
+package frontend.components
 
 import Extensions.Companion.getFirstOrAsserted
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide.elements
+import frontend.helpers.Wrappers.Companion.byDataTestGroup
 import io.kotest.matchers.collections.shouldHaveSize
 import io.qameta.allure.Step
-import org.example.frontend.helpers.Wrappers.Companion.byDataTestGroup
 
 class HeaderComponent {
     private val linksHeader: ElementsCollection = elements(byDataTestGroup("nav-link"))

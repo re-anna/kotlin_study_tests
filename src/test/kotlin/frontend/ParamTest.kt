@@ -1,12 +1,11 @@
 package frontend
 
+import frontend.helpers.BaseUiTest
+import frontend.pages.MainPage
+import frontend.pages.ProductData
+import frontend.pages.ProductsPage
 import io.kotest.matchers.collections.shouldContain
-import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainAllInAnyOrder
-import org.example.frontend.helpers.BaseUiTest
-import org.example.frontend.pages.MainPage
-import org.example.frontend.pages.ProductData
-import org.example.frontend.pages.ProductsPage
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

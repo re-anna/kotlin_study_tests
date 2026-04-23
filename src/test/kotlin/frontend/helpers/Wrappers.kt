@@ -1,4 +1,4 @@
-package org.example.frontend.helpers
+package frontend.helpers
 
 import com.codeborne.selenide.Selectors
 import org.openqa.selenium.By

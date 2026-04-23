@@ -1,4 +1,4 @@
-package org.example.general
+package general
 
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.TestWatcher

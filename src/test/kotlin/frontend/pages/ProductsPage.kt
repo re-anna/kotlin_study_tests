@@ -1,13 +1,13 @@
-package org.example.frontend.pages
+package frontend.pages
 
 import com.codeborne.selenide.CollectionCondition
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
+import frontend.helpers.Wrappers.Companion.byDataTestGroup
+import frontend.helpers.Wrappers.Companion.byDataTestId
 import io.qameta.allure.Step
-import org.example.frontend.helpers.Wrappers.Companion.byDataTestGroup
-import org.example.frontend.helpers.Wrappers.Companion.byDataTestId
 
 data class ProductData(
     val name: String,

@@ -1,11 +1,11 @@
 package frontend
 
+import frontend.constants.AVORONTSOVA
+import frontend.helpers.BaseUiTest
+import frontend.pages.MainPage
+import frontend.pages.ProductsPage
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Owner
-import org.example.frontend.constants.AVORONTSOVA
-import org.example.frontend.helpers.BaseUiTest
-import org.example.frontend.pages.MainPage
-import org.example.frontend.pages.ProductsPage
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

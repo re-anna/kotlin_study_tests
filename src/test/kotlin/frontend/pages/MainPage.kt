@@ -1,12 +1,12 @@
-package org.example.frontend.pages
+package frontend.pages
 
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.SelenideElement
+import frontend.components.HeaderComponent
+import frontend.helpers.Wrappers.Companion.byDataTestId
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Step
-import org.example.frontend.components.HeaderComponent
-import org.example.frontend.helpers.Wrappers.Companion.byDataTestId
 
 class MainPage{
     private val txtTitle: SelenideElement get() = element(byDataTestId("main-image-text"))

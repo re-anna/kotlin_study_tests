@@ -1,35 +1,35 @@
-package org.example.backend
+package infra
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import config.Config
 import io.qameta.allure.okhttp3.AllureOkHttp3
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import org.example.general.Config
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.jackson.JacksonConverterFactory
 import java.time.Duration
 
 object RetrofitClient {
 
     private val timeout = Duration.ofSeconds(10)
-    private val client = OkHttpClient.Builder()
+
+    private val mapper = jacksonObjectMapper()
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+
+    private val client: OkHttpClient = OkHttpClient.Builder()
         .retryOnConnectionFailure(true)
         .callTimeout(timeout)
+        .connectTimeout(timeout)
         .readTimeout(timeout)
-    //.writetimeout
-    //добавляем интерсептор
-        .addInterceptor { chain: Interceptor.Chain ->
-            val builder = chain.request().newBuilder()
-            chain.proceed(builder.build())
-        }
+        .writeTimeout(timeout)
         .addInterceptor(AllureOkHttp3())
         .build()
 
-    //инициализируем объявляем клиент.
     fun <T> createService(service: Class<T>): T =
         Retrofit.Builder()
             .baseUrl(Config.get.backendUrl)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(JacksonConverterFactory.create(mapper))
             .build()
             .create(service)
 }

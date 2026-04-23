@@ -1,16 +1,15 @@
-package org.example.general
+package infra.junit
 
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Screenshots
 import com.codeborne.selenide.Selenide
+import frontend.helpers.DriverProvider
+import config.Config
 import io.qameta.allure.Attachment
-import org.example.frontend.helpers.DriverProvider
 import org.junit.platform.engine.TestExecutionResult
 import org.junit.platform.launcher.TestExecutionListener
 import org.junit.platform.launcher.TestIdentifier
 import org.junit.platform.launcher.TestPlan
-import kotlin.jvm.java
-import kotlin.text.get
 
 class GlobalTestListener : TestExecutionListener {
 

@@ -1,3 +1,3 @@
-package org.example.frontend.constants
+package frontend.constants
 
 const val AVORONTSOVA = " Anna Vorontsova "

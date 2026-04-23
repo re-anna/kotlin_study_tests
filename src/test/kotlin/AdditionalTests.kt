@@ -1,10 +1,10 @@
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.sleep
 import io.kotest.matchers.shouldBe
-import org.example.frontend.helpers.BaseUiTest
+import frontend.helpers.BaseUiTest
 import org.junit.jupiter.api.Test
 
-class AdditionalTests : BaseUiTest() {
+class AdditionalTests : frontend.helpers.BaseUiTest() {
 
     @Test
     fun openGoldApple(){

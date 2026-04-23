@@ -1,10 +1,8 @@
-package org.example.general
+package config
 
-import tools.jackson.module.kotlin.jacksonObjectMapper
-import tools.jackson.module.kotlin.readValue
-import java.io.File
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import java.util.Properties
-import kotlin.jvm.java
 
 object Config {
 
