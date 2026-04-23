@@ -4,7 +4,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.kotest.assertions.fail
 import io.qameta.allure.Step
-import retrofit2.Call
 import retrofit2.Response
 
 class ResponseExt {
