@@ -18,22 +18,21 @@ class LoginTest : Controllers() {
 
         response.accessToken.length shouldBeGreaterThan 10
         response.refreshToken.length shouldBeGreaterThan 10
+        response.id shouldBeGreaterThan 0
     }
 
     @Test
     @DisplayName("Login with empty credentials")
     fun loginWithEmptyCredentials() {
         val response = auth.login("", "").getErrorAsObject<ErrorResponse>()
-        response.code shouldBe 400
-        response.reason shouldBe "Invalid email or password"
+        response shouldBe ErrorResponse.EmptyCredentials
     }
 
     @Test
     @DisplayName("Login with invalid credentials should return error")
     fun testLoginWithInvalidCredentials() {
-        val response = auth.login("invalid", "invalid").getErrorAsObject<ErrorResponse>()
+        val response = auth.login("!!!invalid", "!!!invalid").getErrorAsObject<ErrorResponse>()
 
-        response.code shouldBe 400
-        response.reason shouldBe "Invalid email or password"
+        response shouldBe ErrorResponse.InvalidCredentials
     }
 }

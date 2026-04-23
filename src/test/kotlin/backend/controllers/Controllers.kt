@@ -1,6 +1,6 @@
 package backend.controllers
 
 open class Controllers {
-    protected val auth get() = AuthController()
-    protected val user get() = UserController()
+    protected val auth: AuthController by lazy { AuthController() }
+    protected val user: UserController by lazy { UserController() }
 }
