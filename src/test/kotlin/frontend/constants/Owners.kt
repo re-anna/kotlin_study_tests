@@ -1,3 +1,3 @@
 package frontend.constants
 
-const val AVORONTSOVA = " Anna Vorontsova "
+const val AVORONTSOVA = "Anna Vorontsova"

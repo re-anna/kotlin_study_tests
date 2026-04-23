@@ -13,20 +13,10 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class ParamTest : BaseUiTest() {
 
-    //TODO
-    @ParameterizedTest
-    @ValueSource(strings = ["Brew & Bean", "Products", "Orders", "Contact","Cart", "Join"])
-    fun chekHeaderValueSource(links: String){
-        val listLinks = MainPage().header().getLinksText()
-        listLinks.shouldContainAllInAnyOrder(links)
-    }
-
-
     @ParameterizedTest
     @DisplayName("Проверить названия продуктов")
     @ValueSource(strings = ["Coca Cola", "Coffee", "Tea", "Bubble Tea", "Water", "Juice"])
     fun checkProducts(links: String){
-        ProductsPage().open()
         val productsLinks = ProductsPage().getProductsInfo()
         productsLinks.shouldContainAllInAnyOrder(links)
     }

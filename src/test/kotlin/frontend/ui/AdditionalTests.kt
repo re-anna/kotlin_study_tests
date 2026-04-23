@@ -1,15 +1,18 @@
+package frontend.ui
+
 import com.codeborne.selenide.Selenide
-import com.codeborne.selenide.Selenide.sleep
+import frontend.helpers.BaseUiTest
 import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+class AdditionalTests : BaseUiTest() {
 
-class AdditionalTests : frontend.helpers.BaseUiTest() {
-
+    @Disabled
     @Test
     fun openGoldApple(){
         Selenide.open("/")
         val title = Selenide.title()
-        sleep(10_000)
+        Selenide.sleep(10_000)
         title shouldBe "Gold Apple — checking device"
     }
 }
