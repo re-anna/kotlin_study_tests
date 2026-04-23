@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class NavigationTest: BaseUiTest() {
+
     @Test
     @DisplayName("Open Product page from header")
     fun openProductsFromHeader(){
