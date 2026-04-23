@@ -8,7 +8,7 @@ import org.openqa.selenium.remote.LocalFileDetector
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URI
 
-/*
+
 class DriverProvider : WebDriverProvider{
 
     private val BROWSER_NAME = System.getProperty("browser","chrome")
@@ -42,4 +42,4 @@ class DriverProvider : WebDriverProvider{
             .run { RemoteWebDriver(URI("https://").toURL(), this) }
             .apply {this.fileDetector = LocalFileDetector()}
     }
-}*/
+}

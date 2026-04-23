@@ -9,15 +9,14 @@ import org.junit.platform.engine.TestExecutionResult
 import org.junit.platform.launcher.TestExecutionListener
 import org.junit.platform.launcher.TestIdentifier
 import org.junit.platform.launcher.TestPlan
-import java.util.Properties
-import kotlin.also
 import kotlin.jvm.java
+import kotlin.text.get
 
 class GlobalTestListener : TestExecutionListener {
 
     override fun testPlanExecutionStarted(testPlan: TestPlan) {
-        println("|------ Test Plan started -----|")
-        println("Initializing Configuration...").also { Config.get }
+        println("|------ Test Plan Started -----|")
+        println("Initializing Configurations...").also { Config.get }
         println("Initializing Selenide WebDriver...").also { Configuration.browser = DriverProvider::class.java.name }
     }
 
@@ -42,8 +41,18 @@ class GlobalTestListener : TestExecutionListener {
     }
 
     override fun testPlanExecutionFinished(testPlan: TestPlan) {
+        println("|------ Test Plan Finished -----|")
         Selenide.closeWebDriver()
-        println("|------ Test plan is finished -----|")
+        /*println("|------ GarbageCollector -----|")
+        GarbageCollector.user.forEach { id ->
+            users.deleteUserById(token = authHelper.getAdminToken(), id = id).also { println("Deleted User: $id") }
+        }
+
+        users.getAllUsers(token = authHelper.getAdminToken(), offset = 1, limit = 50).getAsObject().forEach { user ->
+            if (user.email.contains("@autotest.com")) {
+                users.deleteUserById(token = authHelper.getAdminToken(), id = user.id).also { println("Deleted User: ${user.email}") }
+            }
+        }*/
     }
 
     @Attachment(value = "{name}", type = "image/png")

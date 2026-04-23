@@ -5,6 +5,8 @@ import io.kotest.matchers.string.shouldStartWith
 import org.example.general.Config
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.platform.launcher.TestExecutionListener
 
 class PropertiesTests {
 
@@ -19,6 +21,6 @@ class PropertiesTests {
         props.frontendUrl shouldStartWith "http"
         props.backendUrl shouldStartWith "http"
         props.backendApiVersion.matches(Regex("v\\d+")) shouldBe true
-        props.moonHost shouldContain "selenoid.autotests.cloud"
+        props.moonHost shouldContain "http://localhost:30765/wd/hub"
     }
 }
