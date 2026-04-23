@@ -1,4 +1,4 @@
-package frontend.ui
+package frontend.tests
 
 import com.codeborne.selenide.Selenide
 import frontend.helpers.BaseUiTest

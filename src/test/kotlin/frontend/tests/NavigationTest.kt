@@ -1,4 +1,4 @@
-package frontend.ui
+package frontend.tests
 
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage

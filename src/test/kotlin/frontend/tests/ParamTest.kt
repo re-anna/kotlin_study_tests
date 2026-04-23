@@ -1,7 +1,6 @@
-package frontend.ui
+package frontend.tests
 
 import frontend.helpers.BaseUiTest
-import frontend.pages.MainPage
 import frontend.pages.ProductData
 import frontend.pages.ProductsPage
 import io.kotest.matchers.collections.shouldContain

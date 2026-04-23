@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import config.Config
 import io.qameta.allure.okhttp3.AllureOkHttp3
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -22,6 +23,10 @@ object RetrofitClient {
         .connectTimeout(timeout)
         .readTimeout(timeout)
         .writeTimeout(timeout)
+        .addInterceptor { chain: Interceptor.Chain ->
+            val builder = chain.request().newBuilder()
+            chain.proceed(builder.build())
+        }
         .addInterceptor(AllureOkHttp3())
         .build()
 
