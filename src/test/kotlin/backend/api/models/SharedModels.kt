@@ -3,21 +3,18 @@ package backend.api.models
 data class ErrorResponse(
     var code: Int,
     var reason: String
-) {
-    companion object{
-        val InvalidCredentials = ErrorResponse(
+)
+        val invalidCredentials = ErrorResponse(
             code = 400,
             reason = "Invalid email or password"
         )
 
-        val EmptyCredentials = ErrorResponse(
+        val emptyCredentials = ErrorResponse(
             code = 400,
             reason = "Invalid email or password"
         )
 
-        val UserAlreadyExists = ErrorResponse(
+        val userAlreadyExists = ErrorResponse(
             code = 400,
             reason = "Something went wrong. Please verify request."
         )
-    }
-}

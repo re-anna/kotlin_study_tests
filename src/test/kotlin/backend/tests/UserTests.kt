@@ -1,6 +1,7 @@
 package backend.tests
 
 import backend.api.models.ErrorResponse
+import backend.api.models.userAlreadyExists
 import backend.api.models.users.randomUser
 import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject
@@ -31,6 +32,6 @@ class UserTests: Controllers() {
 
         val error = user.createUser(newUser).getErrorAsObject<ErrorResponse>()
 
-        error shouldBe ErrorResponse.UserAlreadyExists
+        error shouldBe userAlreadyExists
     }
 }

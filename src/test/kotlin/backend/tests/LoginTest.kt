@@ -1,6 +1,8 @@
 package backend.tests
 
 import backend.api.models.ErrorResponse
+import backend.api.models.emptyCredentials
+import backend.api.models.invalidCredentials
 import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.getErrorAsObject
@@ -25,7 +27,7 @@ class LoginTest : Controllers() {
     @DisplayName("Login with empty credentials")
     fun loginWithEmptyCredentials() {
         val response = auth.login("", "").getErrorAsObject<ErrorResponse>()
-        response shouldBe ErrorResponse.EmptyCredentials
+        response shouldBe emptyCredentials
     }
 
     @Test
@@ -33,6 +35,6 @@ class LoginTest : Controllers() {
     fun testLoginWithInvalidCredentials() {
         val response = auth.login("!!!invalid", "!!!invalid").getErrorAsObject<ErrorResponse>()
 
-        response shouldBe ErrorResponse.InvalidCredentials
+        response shouldBe invalidCredentials
     }
 }
