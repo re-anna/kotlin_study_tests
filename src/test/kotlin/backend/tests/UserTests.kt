@@ -7,8 +7,10 @@ import backend.api.models.users.createUser.defaultUser
 import backend.api.models.users.createUser.randomUser
 import backend.api.models.users.updateUser.UpdateRequest
 import backend.controllers.Controllers
+import backend.extension.ResponseExt.Companion.checkIsSuccessful
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.getErrorAsObject
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
@@ -48,6 +50,47 @@ class UserTests: Controllers() {
         val updatedUser = user.getUserById(authHelper.getAdminToken(),createdUser.id).getAsObject()
 
         updatedUser.phoneNumber shouldBeEqual newPhone
+    }
+
+    @Test
+    @DisplayName("Get requested user from all users")
+    fun getUserFromAllUsers(){
+        val newUser = user.createUser(randomUser()).getAsObject()
+        val allUsers = user.getAllUsers(authHelper.getAdminToken()).getAsObject()
+
+        allUsers shouldContain newUser
+    }
+
+    @Test
+    @DisplayName("Update full user model with valid data")
+    fun updateFullUserData(){
+        val newUser = user.createUser(randomUser()).getAsObject()
+        val updateRequest = UpdateRequest(
+            "updated-${newUser.username}",
+            "updated-password",
+            "updated-${newUser.email}",
+            "899888888}"
+        )
+
+        val updatedUser = user.updateUserById(authHelper.getAdminToken(),id = newUser.id, body = updateRequest).getAsObject()
+        val login = auth.login(updateRequest.email!!, updateRequest.password!!).getAsObject()
+
+        login.accessToken.length shouldBeGreaterThan 10
+        updatedUser.phoneNumber shouldBe updateRequest.phoneNumber
+        updatedUser.username shouldBe updateRequest.username
+        updatedUser.email shouldBe updateRequest.email
+    }
+
+    @Test
+    @DisplayName("Update partial user model with valid data")
+    fun updatePartialUserData(){
+        val newUser = user.createUser(randomUser()).getAsObject()
+        val updateRequest = UpdateRequest( password ="UpdatePassword")
+        user.updateUserById(authHelper.getAdminToken(),newUser.id,updateRequest).checkIsSuccessful()
+
+        val login = auth.login(newUser.email, updateRequest.password!!).getAsObject()
+
+        login.accessToken.length shouldBeGreaterThan 10
     }
 
     @Test

@@ -4,7 +4,7 @@ import kotlin.random.Random
 
 data class CreateUserRequest(
     val username: String,
-    val password: String,
+    val password: String?,
     val email: String?
 )
 

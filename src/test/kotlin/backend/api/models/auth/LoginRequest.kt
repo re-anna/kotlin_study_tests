@@ -6,6 +6,6 @@ data class LoginRequest(
 )
 
 val defaultAdmin = LoginRequest(
-    email = "admin",
+    email = "admin@autotest.com",
     password = "admin"
 )
