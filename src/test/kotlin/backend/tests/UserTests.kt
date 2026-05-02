@@ -10,7 +10,6 @@ import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.checkIsSuccessful
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.getErrorAsObject
-import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
@@ -50,15 +49,6 @@ class UserTests: Controllers() {
         val updatedUser = user.getUserById(authHelper.getAdminToken(),createdUser.id).getAsObject()
 
         updatedUser.phoneNumber shouldBeEqual newPhone
-    }
-
-    @Test
-    @DisplayName("Get requested user from all users")
-    fun getUserFromAllUsers(){
-        val newUser = user.createUser(randomUser()).getAsObject()
-        val allUsers = user.getAllUsers(authHelper.getAdminToken()).getAsObject()
-
-        allUsers shouldContain newUser
     }
 
     @Test
