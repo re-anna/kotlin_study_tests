@@ -1,4 +1,4 @@
-package backend.api.models.users
+package backend.api.models.users.createUser
 
 data class CreateUserResponse(
     val id: Int,

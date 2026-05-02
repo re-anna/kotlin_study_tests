@@ -1,5 +1,9 @@
 package infra.junit
 
+import backend.api.helpers.AuthHelper
+import backend.api.helpers.GarbageCollector
+import backend.controllers.Controllers
+import backend.extension.ResponseExt.Companion.getAsObject
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Screenshots
 import com.codeborne.selenide.Selenide
@@ -11,7 +15,9 @@ import org.junit.platform.launcher.TestExecutionListener
 import org.junit.platform.launcher.TestIdentifier
 import org.junit.platform.launcher.TestPlan
 
-class GlobalTestListener : TestExecutionListener {
+class GlobalTestListener : Controllers(), TestExecutionListener {
+
+    private val authHelper = AuthHelper()
 
     override fun testPlanExecutionStarted(testPlan: TestPlan) {
         println("|------ Test Plan Started -----|")
@@ -42,20 +48,21 @@ class GlobalTestListener : TestExecutionListener {
     override fun testPlanExecutionFinished(testPlan: TestPlan) {
         println("|------ Test Plan Finished -----|")
         Selenide.closeWebDriver()
-        /*println("|------ GarbageCollector -----|")
+        println("|------ GarbageCollector -----|")
         GarbageCollector.user.forEach { id ->
-            users.deleteUserById(token = authHelper.getAdminToken(), id = id).also { println("Deleted User: $id") }
+            user.deleteUserById(token = authHelper.getAdminToken(), id = id)
+                .also { println("Deleted User: $id") }
         }
 
-        users.getAllUsers(token = authHelper.getAdminToken(), offset = 1, limit = 50).getAsObject().forEach { user ->
-            if (user.email.contains("@autotest.com")) {
-                users.deleteUserById(token = authHelper.getAdminToken(), id = user.id).also { println("Deleted User: ${user.email}") }
+        user.getAllUsers(authHelper.getAdminToken(), 1, 50).getAsObject().forEach { users ->
+            if (users.email.contains("@autotest.com")) {
+                user.deleteUserById(authHelper.getAdminToken(), users.id).also { println(" ${users.email} deleted") }
             }
-        }*/
+        }
     }
 
-    @Attachment(value = "{name}", type = "image/png")
-    fun attachScreenshot(name: String = "SCREENSHOT"): ByteArray? {
-        return Screenshots.takeScreenShotAsFile()?.readBytes()
+        @Attachment(value = "{name}", type = "image/png")
+        fun attachScreenshot(name: String = "SCREENSHOT"): ByteArray? {
+            return Screenshots.takeScreenShotAsFile()?.readBytes()
+        }
     }
-}

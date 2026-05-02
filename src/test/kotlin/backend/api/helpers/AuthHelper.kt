@@ -1,5 +1,6 @@
 package backend.api.helpers
 
+import backend.api.models.auth.defaultAdmin
 import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.toBearer
@@ -14,4 +15,9 @@ class AuthHelper: Controllers() {
         return auth.login(email,password).getAsObject().accessToken.toBearer()
     }
 
+    @Step
+    @DisplayName("Get ADMIN token")
+    fun getAdminToken(): String {
+        return auth.login(email = defaultAdmin.email, password = defaultAdmin.password).getAsObject().accessToken.toBearer()
+    }
 }

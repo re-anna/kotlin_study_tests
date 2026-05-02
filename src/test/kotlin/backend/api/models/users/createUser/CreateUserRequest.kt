@@ -1,11 +1,11 @@
-package backend.api.models.users
+package backend.api.models.users.createUser
 
 import kotlin.random.Random
 
 data class CreateUserRequest(
     val username: String,
     val password: String,
-    val email: String
+    val email: String?
 )
 
 fun defaultUser() = CreateUserRequest(

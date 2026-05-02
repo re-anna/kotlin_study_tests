@@ -1,8 +1,8 @@
 package backend.api.endpoints
 
-import backend.api.models.users.CreateUserRequest
-import backend.api.models.users.CreateUserResponse
-import backend.api.models.users.UpdateRequest
+import backend.api.models.users.createUser.CreateUserRequest
+import backend.api.models.users.createUser.CreateUserResponse
+import backend.api.models.users.updateUser.UpdateRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body

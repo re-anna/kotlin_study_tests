@@ -1,17 +1,54 @@
 package backend.tests
 
+import backend.api.helpers.AuthHelper
 import backend.api.models.ErrorResponse
 import backend.api.models.userAlreadyExists
-import backend.api.models.users.randomUser
+import backend.api.models.users.createUser.defaultUser
+import backend.api.models.users.createUser.randomUser
+import backend.api.models.users.updateUser.UpdateRequest
 import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.getErrorAsObject
+import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class UserTests: Controllers() {
+
+    private val authHelper = AuthHelper()
+
+    @Test
+    @DisplayName("Create user with valid data")
+    fun createUser(){
+        val actualUser = user.createUser(defaultUser()).getAsObject()
+        val expectedUser = user.getUserById(token = authHelper.getAdminToken(), id = actualUser.id)
+
+        expectedUser shouldBeEqual actualUser
+    }
+
+    @Test
+    @DisplayName("Delete valid user should return 200")
+    fun deleteDefaultUser(){
+        val actualUser = user.createUser(defaultUser()).getAsObject()
+        val delete = user.deleteUserById(token = authHelper.getAdminToken(), id = actualUser.id)
+
+        delete.code() shouldBe 200
+    }
+
+    @Test
+    @DisplayName("Update phone number")
+    fun updatePhoneNumber(){
+        val createdUser = user.createUser(randomUser()).getAsObject()
+        val newPhone = "89998988998"
+
+        user.updateUserById(authHelper.getAdminToken(),createdUser.id,UpdateRequest(phoneNumber = newPhone)).getAsObject()
+
+        val updatedUser = user.getUserById(authHelper.getAdminToken(),createdUser.id).getAsObject()
+
+        updatedUser.phoneNumber shouldBeEqual newPhone
+    }
 
     @Test
     @DisplayName("Check that random user is created")
