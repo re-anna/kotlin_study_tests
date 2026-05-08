@@ -1,0 +1,21 @@
+package backend.api.models.products
+
+//реквесты всегда должны быть var и nullable
+data class CreateProductsRequest(
+    var name: String?,
+    var price: Double?,
+    var description: String?
+)
+
+data class CreateProductsResponse(
+    val id: Int,
+    val name: String,
+    val price: Double,
+    val description: String
+)
+
+fun defaultProduct() = CreateProductsRequest(
+    "Espresso for boss",
+    1000.0,
+    "Best coffee ever"
+)

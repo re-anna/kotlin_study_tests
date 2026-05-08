@@ -34,9 +34,9 @@ class GlobalTestListener : Controllers(), TestExecutionListener {
         testIdentifier: TestIdentifier,
         testExecutionResult: TestExecutionResult
     ) {
-        if (testIdentifier.isTest)println("Finished test: ${testIdentifier.displayName} Result: ${testExecutionResult.status}")
-        if(testExecutionResult.status == TestExecutionResult.Status.FAILED && testIdentifier.displayName != "JUnit Jupiter"){
-            attachScreenshot()
+        if (testIdentifier.isTest) println("Finished test: ${testIdentifier.displayName} Result: ${testExecutionResult.status}")
+        if (testExecutionResult.status == TestExecutionResult.Status.FAILED && testIdentifier.displayName != "JUnit Jupiter") {
+            //attachScreenshot()
         }
     }
 
@@ -54,15 +54,20 @@ class GlobalTestListener : Controllers(), TestExecutionListener {
                 .also { println("Deleted User: $id") }
         }
 
-        user.getAllUsers(authHelper.getAdminToken(), 1, 50).getAsObject().forEach { users ->
+        GarbageCollector.products.forEach { id ->
+            products.deleteProductById(token = authHelper.getAdminToken(), id = id).also {
+                println("Deleted Product: $id")
+            }
+            /*user.getAllUsers(authHelper.getAdminToken(), 1, 50).getAsObject().forEach { users ->
             if (users.email.contains("@autotest.com")) {
                 user.deleteUserById(authHelper.getAdminToken(), users.id).also { println(" ${users.email} deleted") }
             }
+        }*/
         }
-    }
 
         @Attachment(value = "{name}", type = "image/png")
         fun attachScreenshot(name: String = "SCREENSHOT"): ByteArray? {
             return Screenshots.takeScreenShotAsFile()?.readBytes()
         }
     }
+}

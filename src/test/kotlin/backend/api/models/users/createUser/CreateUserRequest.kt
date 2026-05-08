@@ -19,3 +19,9 @@ fun randomUser() = CreateUserRequest(
     password = "user",
     email = "random-${Random.nextInt(10000)}@autotest.com"
 )
+
+fun adminUser() = CreateUserRequest(
+    username = "admin",
+    password = "admin",
+    email = "admin@autotest.com"
+)

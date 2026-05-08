@@ -9,4 +9,6 @@ class Extensions {
             this.firstOrNull { it.text == text } ?: fail("Элемент $text не найден")
         }
     }
+    fun String.priceToCents(): Int =
+        filter { it.isDigit() }.toInt()
 }

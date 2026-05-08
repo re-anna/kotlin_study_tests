@@ -2,9 +2,11 @@ package backend.controllers
 
 import backend.api.endpoints.Endpoints
 import backend.api.helpers.AuthHelper
+import backend.api.helpers.GarbageCollector
 import backend.api.models.users.createUser.CreateUserRequest
 import backend.api.models.users.createUser.CreateUserResponse
 import backend.api.models.users.updateUser.UpdateRequest
+import backend.extension.ResponseExt.Companion.getAsObject
 import io.qameta.allure.Step
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -16,6 +18,7 @@ class UserController: Endpoints(){
     @Step("Create new user")
     fun createUser(body: CreateUserRequest): Response<CreateUserResponse>{
         return users.createUser(body).execute()
+            .also { GarbageCollector.user.add(it.getAsObject().id) }
     }
 
     @Step("Get user with {id}")

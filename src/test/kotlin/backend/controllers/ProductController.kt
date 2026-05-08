@@ -1,0 +1,37 @@
+package backend.controllers
+
+import backend.api.endpoints.Endpoints
+import backend.api.helpers.AuthHelper
+import backend.api.models.products.CreateProductsRequest
+import backend.api.models.products.CreateProductsResponse
+import backend.api.models.users.createUser.CreateUserResponse
+import io.qameta.allure.Step
+import okhttp3.ResponseBody
+import retrofit2.Response
+import retrofit2.http.Body
+
+class ProductController: Endpoints() {
+
+    private val authHelper = AuthHelper()
+
+    @Step("Get all products")
+    fun getAllProducts(): Response<List<CreateProductsResponse>?> {
+        return products.getProducts().execute()
+    }
+
+    @Step("Get product by id")
+    fun getProductById(id: Int): Response<CreateProductsResponse?> {
+        return products.getProductById(id).execute()
+    }
+
+    //почему тут мы в аргументы токен засовываем и что такое продакт тут и почему мы его придумали?
+    @Step("Create new product")
+    fun createProduct(token: String = authHelper.getAdminToken(),product: CreateProductsRequest): Response<CreateProductsResponse>{
+        return products.postCreateProduct(token, product).execute()
+    }
+
+    @Step("Delete product with id: {id}")
+    fun deleteProductById(token: String = authHelper.getAdminToken(), id: Any): Response<ResponseBody> {
+        return products.deleteProductById(token, id).execute()
+    }
+}

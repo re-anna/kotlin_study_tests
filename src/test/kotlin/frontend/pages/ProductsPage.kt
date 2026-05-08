@@ -13,7 +13,7 @@ import io.qameta.allure.Step
 data class ProductData(
     val name: String,
     val description: String,
-    val price: String
+    val price: Int
 )
 
 class ProductsPage {
@@ -32,6 +32,11 @@ class ProductsPage {
         return this
     }
 
+    @Step("Get popular products")
+    fun getPopularProducts(): ElementsCollection{
+        listI
+    }
+
     @Step ("Get products information")
     fun getProductsInfo(): List<ProductData> {
         cards.shouldHave(sizeGreaterThan(0))
@@ -42,5 +47,9 @@ class ProductsPage {
                 price = productPrice(card).text()
             )
         }
+    }
+    @Step("Get list of all products from page as objects")
+    fun getProductsAsObjects(): List<ProductData> {
+        return listOf()
     }
 }

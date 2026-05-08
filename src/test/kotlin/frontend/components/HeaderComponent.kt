@@ -2,18 +2,19 @@ package frontend.components
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide.elements
+import frontend.components.popup.CartPopup
 import frontend.helpers.Wrappers.byDataTestGroup
 import frontend.pages.ProductsPage
 import io.qameta.allure.Step
 
 class HeaderComponent {
-    private val links: ElementsCollection = elements(byDataTestGroup("nav-link"))
+    private val links get() = elements(byDataTestGroup("nav-link"))
 
     fun getLinksText(): List<String> = links.map {it.text()}
 
     @Step("Click on {name} link")
     fun clickLink(name: String):HeaderComponent{
-        links.first{ it.text() == name }.click()
+        links.first{ it.text.contains(name)}.click()
         return this
     }
 
@@ -22,4 +23,8 @@ class HeaderComponent {
         clickLink("Products")
         return ProductsPage()
     }
+
+    @Step("Get cart popup")
+    fun openCartPopup(): CartPopup =
+        CartPopup()
 }
