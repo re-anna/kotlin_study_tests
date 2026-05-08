@@ -19,7 +19,7 @@ class MainPage {
     fun header(): HeaderComponent = header
 
     @Step("Get popular products list")
-    fun getPopularProducts(): List<ProductItem> = listPopularProducts
+    fun getPopularProducts(): List<ProductItem> = ProductItems().getProducts()
 
 
 }

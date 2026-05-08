@@ -67,7 +67,7 @@ class ProductsTest: BaseUiTest() {
             .getProductsAsObjects()
             .first()
 
-        firstPopularProducts.shouldBeEqual(firstPopularProducts)
+        firstPopularProducts.shouldBeEqual(firstPopularProductMain)
     }
 
 }
