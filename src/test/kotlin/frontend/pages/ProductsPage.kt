@@ -10,6 +10,7 @@ import frontend.components.list.ProductItem
 import frontend.components.list.ProductItems
 import frontend.helpers.Wrappers.byDataTestGroup
 import frontend.helpers.Wrappers.byDataTestId
+import frontend.helpers.priceToCents
 import io.qameta.allure.Step
 
 data class ProductData(
@@ -35,8 +36,7 @@ class ProductsPage {
     }
 
     @Step("Get popular products")
-    fun getPopularProducts(): ElementsCollection{
-    }
+    fun getPopularProducts(): ElementsCollection = cards
 
     @Step ("Get products information")
     fun getProductsInfo(): List<ProductData> {
@@ -45,7 +45,7 @@ class ProductsPage {
             ProductData(
                 name = productName(card).text(),
                 description = productDescription(card).text(),
-                price = productPrice(card).text()
+                price = productPrice(card).text.priceToCents()
             )
         }
     }

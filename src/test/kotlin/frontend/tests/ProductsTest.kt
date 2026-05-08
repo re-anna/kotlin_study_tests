@@ -47,7 +47,7 @@ class ProductsTest: BaseUiTest() {
         val products = ProductsPage()
             .open()
             .getProductsAsObjects()
-            .sortedByDescending { it.name } // НЕ ЗАБЫВАТЬ
+            .sortedByDescending { it.name }
 
         products.size shouldBe 5
         products.forEachIndexed { index, product ->
@@ -57,7 +57,7 @@ class ProductsTest: BaseUiTest() {
 
     @Test
     @DisplayName("First popular product equals first product on product page")
-    fun firstPopulatProductIsSame(){
+    fun firstPopularProductIsSame(){
         val firstPopularProductMain = MainPage()
             .open()
             .getPopularProducts()
