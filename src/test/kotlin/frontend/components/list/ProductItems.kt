@@ -18,7 +18,7 @@ data class ProductItem(
 
 class ProductItems(private val items: ElementsCollection){
 
-    fun getProducts(): List<ProductData> =
+    fun getProducts(): List<ProductItem> =
         items.map { card ->
             ProductItem(
                 image = card.find(byDataTestGroup("product-card-image")),

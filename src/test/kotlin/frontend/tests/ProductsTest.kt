@@ -7,6 +7,7 @@ import backend.extension.ResponseExt.Companion.getAsObject
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
 import frontend.pages.ProductsPage
+import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Feature
@@ -67,7 +68,7 @@ class ProductsTest: BaseUiTest() {
             .getProductsAsObjects()
             .first()
 
-        firstPopularProducts.shouldBeEqual(firstPopularProductMain)
+        firstPopularProducts.shouldBeEqualToComparingFields(firstPopularProductMain)
     }
 
 }
