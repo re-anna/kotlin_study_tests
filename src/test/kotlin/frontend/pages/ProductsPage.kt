@@ -6,6 +6,7 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
+import frontend.components.list.ProductItems
 import frontend.helpers.Wrappers.byDataTestGroup
 import frontend.helpers.Wrappers.byDataTestId
 import io.qameta.allure.Step
@@ -34,7 +35,6 @@ class ProductsPage {
 
     @Step("Get popular products")
     fun getPopularProducts(): ElementsCollection{
-        listI
     }
 
     @Step ("Get products information")
@@ -49,7 +49,6 @@ class ProductsPage {
         }
     }
     @Step("Get list of all products from page as objects")
-    fun getProductsAsObjects(): List<ProductData> {
-        return listOf()
-    }
+    fun getProductsAsObjects(): List<ProductData> =
+        ProductItems(cards).getProducts()
 }

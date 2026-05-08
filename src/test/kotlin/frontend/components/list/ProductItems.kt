@@ -1,10 +1,10 @@
 package frontend.components.list
 
 import com.codeborne.selenide.ElementsCollection
-import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
 import frontend.helpers.Wrappers.byDataTestGroup
 import frontend.helpers.priceToCents
+import frontend.pages.ProductData
 
 data class ProductItem(
     val image: SelenideElement,
@@ -16,9 +16,9 @@ data class ProductItem(
     val btnIncrement: SelenideElement
 )
 
-class ProductItems( private val items: ElementsCollection){
+class ProductItems(private val items: ElementsCollection){
 
-    fun getProducts(): List<ProductItem> {
+    fun getProducts(): List<ProductData> =
         items.map { card ->
             ProductItem(
                 image = card.find(byDataTestGroup("product-card-image")),
@@ -30,8 +30,6 @@ class ProductItems( private val items: ElementsCollection){
                 btnDecrement = card.find(byDataTestGroup("product-card-decrement"))
             )
         }
-    }
-
 }
 
 
