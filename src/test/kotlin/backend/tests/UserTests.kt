@@ -2,9 +2,7 @@ package backend.tests
 
 import backend.api.helpers.AuthHelper
 import backend.api.models.ErrorResponse
-import backend.api.models.auth.defaultAdmin
 import backend.api.models.userAlreadyExists
-import backend.api.models.users.createUser.adminUser
 import backend.api.models.users.createUser.defaultUser
 import backend.api.models.users.createUser.randomUser
 import backend.api.models.users.updateUser.UpdateRequest
@@ -21,12 +19,6 @@ import org.junit.jupiter.api.Test
 class UserTests: Controllers() {
 
     private val authHelper = AuthHelper()
-
-    @Test
-    @DisplayName("Create default admin")
-    fun createAdmin(){
-        val actualAdmin = user.createUser(adminUser()).getAsObject()
-    }
 
     @Test
     @DisplayName("Create user with valid data")

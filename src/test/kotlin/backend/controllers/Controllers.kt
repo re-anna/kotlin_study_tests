@@ -1,7 +1,7 @@
 package backend.controllers
 
 open class Controllers {
-    protected val auth: AuthController by lazy { AuthController() }
-    protected val user: UserController by lazy { UserController() }
-    val products: ProductController by lazy { ProductController() }
+    val auth get() = AuthController()
+    val user get() = UserController()
+    val products get() = ProductController()
 }

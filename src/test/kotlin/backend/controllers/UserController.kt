@@ -41,6 +41,4 @@ class UserController: Endpoints(){
     fun deleteUserById(token: String = authHelper.getAdminToken(), id: Int): Response<ResponseBody>{
         return users.deleteUserById(token,id).execute()
     }
-
-
-    }
+}

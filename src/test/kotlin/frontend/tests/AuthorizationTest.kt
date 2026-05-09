@@ -9,7 +9,7 @@ class AuthorizationTest: BaseUiTest() {
     @Test
     @DisplayName("Check authorization modal window")
     fun checkValidAuthorization(){
-        //click auth button shadow
+        //todo click auth button shadow
 
 
     }

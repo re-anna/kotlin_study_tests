@@ -2,8 +2,8 @@ package infra.junit
 
 import backend.api.helpers.AuthHelper
 import backend.api.helpers.GarbageCollector
+import backend.api.helpers.ProductsHelper
 import backend.controllers.Controllers
-import backend.extension.ResponseExt.Companion.getAsObject
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Screenshots
 import com.codeborne.selenide.Selenide
@@ -18,6 +18,7 @@ import org.junit.platform.launcher.TestPlan
 class GlobalTestListener : Controllers(), TestExecutionListener {
 
     private val authHelper = AuthHelper()
+    private val productHelper = ProductsHelper()
 
     override fun testPlanExecutionStarted(testPlan: TestPlan) {
         println("|------ Test Plan Started -----|")
@@ -28,6 +29,8 @@ class GlobalTestListener : Controllers(), TestExecutionListener {
     override fun executionStarted(testIdentifier: TestIdentifier) {
         if (!testIdentifier.isTest) return
         println("|--- Test started: ${testIdentifier.displayName}")
+
+       val newProducts = productHelper.createProducts(5)
     }
 
     override fun executionFinished(
@@ -36,7 +39,7 @@ class GlobalTestListener : Controllers(), TestExecutionListener {
     ) {
         if (testIdentifier.isTest) println("Finished test: ${testIdentifier.displayName} Result: ${testExecutionResult.status}")
         if (testExecutionResult.status == TestExecutionResult.Status.FAILED && testIdentifier.displayName != "JUnit Jupiter") {
-            //attachScreenshot()
+        attachScreenshot()
         }
     }
 
@@ -58,16 +61,17 @@ class GlobalTestListener : Controllers(), TestExecutionListener {
             products.deleteProductById(token = authHelper.getAdminToken(), id = id).also {
                 println("Deleted Product: $id")
             }
-            /*user.getAllUsers(authHelper.getAdminToken(), 1, 50).getAsObject().forEach { users ->
-            if (users.email.contains("@autotest.com")) {
-                user.deleteUserById(authHelper.getAdminToken(), users.id).also { println(" ${users.email} deleted") }
-            }
-        }*/
+          /*  user.getAllUsers(authHelper.getAdminToken(), 1, 50).getAsObject().forEach { users ->
+                if (users.email.contains("@autotest.com")) {
+                    user.deleteUserById(authHelper.getAdminToken(), users.id)
+                        .also { println(" ${users.email} deleted") }
+                }
+            }*/
         }
+    }
 
         @Attachment(value = "{name}", type = "image/png")
         fun attachScreenshot(name: String = "SCREENSHOT"): ByteArray? {
             return Screenshots.takeScreenShotAsFile()?.readBytes()
         }
-    }
 }

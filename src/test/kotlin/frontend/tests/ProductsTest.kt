@@ -7,7 +7,7 @@ import backend.extension.ResponseExt.Companion.getAsObject
 import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
 import frontend.pages.ProductsPage
-import io.kotest.matchers.equality.shouldBeEqualToComparingFields
+import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Feature
@@ -56,19 +56,35 @@ class ProductsTest: BaseUiTest() {
     }
 
     @Test
-    @DisplayName("First popular product equals first product on product page")
+    @DisplayName("Check first popular product is first on products page")
     fun firstPopularProductIsSame(){
-        val firstPopularProductMain = MainPage()
+        val firstPopularProduct = MainPage()
             .open()
-            .getPopularProducts()
-            .first()
+            .getPopularProducts()[1]
+            .btnIncrement
+            .click()
 
-        val firstPopularProducts = ProductsPage()
+        val popularProductOnProductPage = ProductsPage()
+            .open()
+            .getProductsAsObjects()[1]
+        println(popularProductOnProductPage)
+
+        firstPopularProduct shouldBeEqual popularProductOnProductPage
+    }
+
+    @Test
+    @DisplayName("Popular products equal products on product page")
+    fun popularProductIsSame(){
+        val popularProductMain = MainPage()
+            .getPopularProducts()
+            .map { Triple(it.name,it.priceCents,it.description) }
+
+        val popularProductsPage = ProductsPage()
             .open()
             .getProductsAsObjects()
-            .first()
+            .map  { Triple(it.name,it.priceCents,it.description) }
 
-        firstPopularProducts.shouldBeEqualToComparingFields(firstPopularProductMain)
+        popularProductMain shouldContainAll popularProductsPage
     }
 
 }

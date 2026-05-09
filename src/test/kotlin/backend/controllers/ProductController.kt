@@ -2,25 +2,25 @@ package backend.controllers
 
 import backend.api.endpoints.Endpoints
 import backend.api.helpers.AuthHelper
+import backend.api.helpers.GarbageCollector
 import backend.api.models.products.CreateProductsRequest
 import backend.api.models.products.CreateProductsResponse
-import backend.api.models.users.createUser.CreateUserResponse
+import backend.extension.ResponseExt.Companion.getAsObject
 import io.qameta.allure.Step
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Body
 
 class ProductController: Endpoints() {
 
     private val authHelper = AuthHelper()
 
     @Step("Get all products")
-    fun getAllProducts(): Response<List<CreateProductsResponse>?> {
+    fun getAllProducts(): Response<List<CreateProductsResponse>> {
         return products.getProducts().execute()
     }
 
     @Step("Get product by id")
-    fun getProductById(id: Int): Response<CreateProductsResponse?> {
+    fun getProductById(id: Int): Response<CreateProductsResponse> {
         return products.getProductById(id).execute()
     }
 
@@ -28,6 +28,7 @@ class ProductController: Endpoints() {
     @Step("Create new product")
     fun createProduct(token: String = authHelper.getAdminToken(),product: CreateProductsRequest): Response<CreateProductsResponse>{
         return products.postCreateProduct(token, product).execute()
+            .also {GarbageCollector.products.add(it.getAsObject().id)}
     }
 
     @Step("Delete product with id: {id}")

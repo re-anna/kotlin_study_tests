@@ -2,7 +2,6 @@ package backend.api.endpoints
 
 import backend.api.models.products.CreateProductsRequest
 import backend.api.models.products.CreateProductsResponse
-import backend.api.models.users.createUser.CreateUserResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -18,7 +17,7 @@ interface ProductsEndpoints {
     fun getProducts(): Call<List<CreateProductsResponse>>
 
     //поставили не int а any чтобы можно было поэксперементировать со стрингой и т д
-    @GET("products/id")
+    @GET("products/{id}")
     fun getProductById(
         @Path("id") id: Any
     ): Call<CreateProductsResponse>
