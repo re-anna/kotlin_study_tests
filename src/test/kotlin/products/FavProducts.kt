@@ -1,4 +1,4 @@
-package frontend.products
+package products
 
 import backend.helpers.AuthHelper
 import backend.api.models.products.CreateProductsRequest
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test
 class FavProducts: BaseUiTest() {
 
     private val controllers = Controllers()
-    private val authHelper = AuthHelper()
 
     @Test
     @DisplayName("Favorite products check")

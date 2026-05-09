@@ -18,7 +18,6 @@ import org.junit.platform.launcher.TestPlan
 class GlobalTestListener : Controllers(), TestExecutionListener {
 
     private val authHelper = AuthHelper()
-    private val productHelper = ProductsHelper()
 
     override fun testPlanExecutionStarted(testPlan: TestPlan) {
         println("|------ Test Plan Started -----|")
@@ -29,8 +28,6 @@ class GlobalTestListener : Controllers(), TestExecutionListener {
     override fun executionStarted(testIdentifier: TestIdentifier) {
         if (!testIdentifier.isTest) return
         println("|--- Test started: ${testIdentifier.displayName}")
-
-       val newProducts = productHelper.createProducts(5)
     }
 
     override fun executionFinished(

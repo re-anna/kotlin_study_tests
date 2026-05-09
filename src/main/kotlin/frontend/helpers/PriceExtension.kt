@@ -1,4 +1,3 @@
 package frontend.helpers
 
-    fun String.priceToCents(): Int =
-        filter { it.isDigit() }.toInt()
+fun String.priceToCents(): Int = filter { it.isDigit() }.toInt()

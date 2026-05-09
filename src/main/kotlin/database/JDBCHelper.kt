@@ -25,6 +25,7 @@ class JDBCHelper {
                     description = resultSet.getString("description"),
                     price = resultSet.getDouble("price")
                 )
+                products.add(product)
             }
 
             resultSet.close()
@@ -48,6 +49,30 @@ class JDBCHelper {
         connection.createStatement().use { statement ->
             statement.executeQuery("SELECT * FROM table_users").use { resultSet ->
                 generateSequence { resultSet.takeIf { it.next() }?.toUsers() }.toList()
+            }
+        }
+    }
+
+    fun findUserByEmail(email: String): Users? {
+        val sql = """
+            SELECT id, name, email
+            FROM table_users
+            Where email = ?
+        """.trimIndent()
+
+        return client.use { connection ->
+            connection.prepareStatement(sql).use { preparedStatement ->
+                preparedStatement.setString(1,email)
+
+                preparedStatement.executeQuery().use { resultSet ->
+                    if (!resultSet.next()) return null
+
+                    Users(
+                        id = resultSet.getInt("id"),
+                        username = resultSet.getString("username"),
+                        email = resultSet.getString("email")
+                    )
+                }
             }
         }
     }

@@ -8,7 +8,6 @@ import frontend.helpers.BaseUiTest
 import frontend.pages.MainPage
 import frontend.pages.ProductsPage
 import io.kotest.matchers.collections.shouldContainAll
-import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.shouldBe
 import io.qameta.allure.Feature
 import io.qameta.allure.Story
@@ -42,7 +41,7 @@ class ProductsTest: BaseUiTest() {
     @Test
     @DisplayName("Check that 5 products exist")
     fun testFiveProductsExist() {
-        val listOfProducts = productsHelper.createProducts(5).sortedByDescending { it.name } // НЕ ЗАБЫВАТЬ
+        val listOfProducts = productsHelper.createProducts(5).sortedByDescending { it.name }
 
         val products = ProductsPage()
             .open()
@@ -60,16 +59,15 @@ class ProductsTest: BaseUiTest() {
     fun firstPopularProductIsSame(){
         val firstPopularProduct = MainPage()
             .open()
-            .getPopularProducts()[1]
-            .btnIncrement
-            .click()
+            .getPopularProducts()
+            .first()
 
         val popularProductOnProductPage = ProductsPage()
             .open()
-            .getProductsAsObjects()[1]
-        println(popularProductOnProductPage)
+            .getProductsAsObjects()
+            .first()
 
-        firstPopularProduct shouldBeEqual popularProductOnProductPage
+        firstPopularProduct shouldBe popularProductOnProductPage
     }
 
     @Test
@@ -86,5 +84,4 @@ class ProductsTest: BaseUiTest() {
 
         popularProductMain shouldContainAll popularProductsPage
     }
-
 }

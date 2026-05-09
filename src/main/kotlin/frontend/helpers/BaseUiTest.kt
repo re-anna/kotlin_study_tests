@@ -1,5 +1,6 @@
 package frontend.helpers
 
+import backend.helpers.ProductsHelper
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide
 import config.Config

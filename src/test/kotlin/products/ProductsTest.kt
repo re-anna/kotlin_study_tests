@@ -1,8 +1,7 @@
-package frontend.products
+package products
 
 import backend.helpers.ProductsHelper
 import backend.controllers.Controllers
-import backend.extension.ResponseExt.Companion.getAsObject
 import frontend.helpers.BaseUiTest
 import frontend.pages.ProductsPage
 import io.kotest.matchers.equals.shouldBeEqual
@@ -31,17 +30,16 @@ class ProductsTest: BaseUiTest() {
     }
 
     @Test
-    @DisplayName("Create 'COFFEE' products via back and then check them on fronend and backend")
+    @DisplayName("Create 'COFFEE' products via back and then check them on frontend and backend")
     fun checkCreatedItems(){
-        val createdItems = productsHelper.createCoffeeProducts(5)
+        val word = "COFFEE"
+        productsHelper.ensureProductsWithWordExists(word = word, minCount = 5)
 
         val frontendCoffeeCount = ProductsPage()
             .open()
-            .getProductsAsObjects()
-            .filter { it.name.contains("COFFEE",ignoreCase = true) }.size
+            .countProductsWithWord(word)
 
-        val backendProductCount = productsHelper.products.getAllProducts().getAsObject()
-            .filter {it.name.contains("COFFEE",ignoreCase = true)}.size
+        val backendProductCount = productsHelper.countProductsWithWordBackend(word)
 
         frontendCoffeeCount shouldBeEqual backendProductCount
     }

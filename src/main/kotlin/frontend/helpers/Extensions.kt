@@ -1,3 +1,5 @@
+package frontend.helpers
+
 import com.codeborne.selenide.ElementsCollection
 import io.kotest.assertions.AssertionErrorBuilder.Companion.fail
 
