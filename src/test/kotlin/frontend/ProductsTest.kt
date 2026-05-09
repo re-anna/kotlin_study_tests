@@ -74,13 +74,12 @@ class ProductsTest: BaseUiTest() {
     @DisplayName("Popular products equal products on product page")
     fun popularProductIsSame(){
         val popularProductMain = MainPage()
+            .open()
             .getPopularProducts()
-            .map { Triple(it.name,it.priceCents,it.description) }
 
         val popularProductsPage = ProductsPage()
             .open()
             .getProductsAsObjects()
-            .map  { Triple(it.name,it.priceCents,it.description) }
 
         popularProductsPage shouldContainAll popularProductMain
     }
