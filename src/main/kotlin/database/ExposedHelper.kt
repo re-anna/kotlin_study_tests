@@ -51,7 +51,11 @@ class ExposedHelper {
         )
 
         return transaction(database) {
-            UsersEntity.selectAll().where(UsersEntity.email eq email).limit(1).map { UsersEntity.toModel(it)}
+            UsersEntity
+                .selectAll()
+                .where{UsersEntity.email eq email}
+                .limit(1)
+                .map { UsersEntity.toModel(it)}
                 .singleOrNull()
         }.also { database.connector().close() }
     }

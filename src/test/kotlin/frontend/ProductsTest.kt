@@ -82,6 +82,6 @@ class ProductsTest: BaseUiTest() {
             .getProductsAsObjects()
             .map  { Triple(it.name,it.priceCents,it.description) }
 
-        popularProductMain shouldContainAll popularProductsPage
+        popularProductsPage shouldContainAll popularProductMain
     }
 }

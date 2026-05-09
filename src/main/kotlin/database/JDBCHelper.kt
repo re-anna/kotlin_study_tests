@@ -55,7 +55,7 @@ class JDBCHelper {
 
     fun findUserByEmail(email: String): Users? {
         val sql = """
-            SELECT id, name, email
+            SELECT id, username, email
             FROM table_users
             Where email = ?
         """.trimIndent()
