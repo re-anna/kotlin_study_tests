@@ -18,7 +18,7 @@ interface UserEndpoints {
 
     @GET("users/")
     fun getUsers(
-        @Header(Headers.AUTHORIZATION) token: String,
+        @Header(Headers.AUTHORIZATION) token: String?,
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
     ): Call<List<CreateUserResponse>>
@@ -34,7 +34,7 @@ interface UserEndpoints {
 
     @PUT("users/{id}")
     fun putUserById(
-        @Header(Headers.AUTHORIZATION) token: String,
+        @Header(Headers.AUTHORIZATION) token: String?,
         @Path("id") id: Int,
         @Body body: UpdateRequest
     ): Call<CreateUserResponse>
