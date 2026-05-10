@@ -1,4 +1,4 @@
-package products
+package frontend.products
 
 import backend.api.models.products.CreateProductsRequest
 import backend.controllers.Controllers

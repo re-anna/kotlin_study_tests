@@ -1,4 +1,4 @@
-package products
+package frontend.products
 
 import backend.helpers.ProductsHelper
 import backend.controllers.Controllers

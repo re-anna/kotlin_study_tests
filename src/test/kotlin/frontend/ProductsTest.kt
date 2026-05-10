@@ -15,7 +15,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @Feature("")
-@Story("products")
+@Story("frontend/products")
 class ProductsTest: BaseUiTest() {
 
     private val controllers = Controllers()
