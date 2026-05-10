@@ -1,10 +1,11 @@
 package database
 
+import frontend.helpers.BaseTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class DBProductsTest {
+class DBProductsTest: BaseTest() {
     val jdbcClient = JDBCHelper()
 
     //todo пустой массив

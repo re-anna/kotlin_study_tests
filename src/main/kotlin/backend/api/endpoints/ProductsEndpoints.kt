@@ -24,7 +24,7 @@ interface ProductsEndpoints {
 
     @POST("products/create")
     fun postCreateProduct(
-        @Header(Headers.AUTHORIZATION) token: String,
+        @Header(Headers.AUTHORIZATION) token: String?,
         @Body request: CreateProductsRequest
     ): Call<CreateProductsResponse>
 

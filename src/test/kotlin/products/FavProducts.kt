@@ -1,6 +1,5 @@
 package products
 
-import backend.helpers.AuthHelper
 import backend.api.models.products.CreateProductsRequest
 import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject

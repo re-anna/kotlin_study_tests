@@ -1,13 +1,12 @@
 package frontend.helpers
 
-import backend.helpers.ProductsHelper
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide
 import config.Config
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 
-open class BaseUiTest {
+open class BaseUiTest: BaseTest() {
 
     init {
         Configuration.baseUrl = Config.get.frontendUrl

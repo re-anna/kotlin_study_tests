@@ -5,14 +5,16 @@ import backend.extension.ResponseExt.Companion.getAsObject
 import backend.helpers.AuthHelper
 import backend.helpers.GarbageCollector
 import frontend.components.popup.CreateUserPopup
+import frontend.helpers.BaseTest
 import frontend.pages.MainPage
+import infra.junit.TestContext.token
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
-class DBUserTest {
+class DBUserTest: BaseTest() {
 
     private val jdbcClient = JDBCHelper()
     private val exposedHelper = ExposedHelper()
@@ -44,7 +46,7 @@ class DBUserTest {
         dbUser.username shouldBe username
         dbUser.email shouldBe email
 
-        val apiUser = controllers.user.getUserById(authHelper.getAdminToken(), id = dbUser.id).getAsObject()
+        val apiUser = controllers.user.getUserById(token, id = dbUser.id).getAsObject()
 
         dbUser.username shouldBe apiUser.username
         dbUser.email shouldBe apiUser.email
@@ -74,7 +76,7 @@ class DBUserTest {
         dbUser.username shouldBe username
         dbUser.email shouldBe email
 
-        val apiUser = controllers.user.getUserById(authHelper.getAdminToken(), id = dbUser.id).getAsObject()
+        val apiUser = controllers.user.getUserById(token, id = dbUser.id).getAsObject()
 
         dbUser.username shouldBe apiUser.username
         dbUser.email shouldBe apiUser.email

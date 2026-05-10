@@ -2,12 +2,14 @@ package backend
 
 import backend.helpers.AuthHelper
 import backend.api.models.products.defaultProduct
-import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject
+import frontend.helpers.BaseTest
+import infra.junit.TestContext.token
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class ProductTests: Controllers() {
+class ProductTests: BaseTest() {
 
     private val authHelper = AuthHelper()
 
@@ -15,20 +17,12 @@ class ProductTests: Controllers() {
     @DisplayName("Create valid product")
     fun createValidProduct(){
         val baseProduct = products.createProduct(
-            token = authHelper.getAdminToken(),
+            token,
             product = defaultProduct()
         ).getAsObject()
 
-//TODO
-      //  val expectedProduct = products.getProductById(18).getAsObject()
+         val expectedProduct = products.getProductById(baseProduct.id).getAsObject()
 
-       // baseProduct shouldBe expectedProduct
+        baseProduct shouldBe expectedProduct
     }
-
-    /*@Test
-    @DisplayName("Create product with null name")
-    fun createProductWithoutName(){
-        val actualProduct = products.createProduct( token = authHelper.getAdminToken(),
-            product = "",)
-    }*/
 }

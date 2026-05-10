@@ -6,12 +6,13 @@ import backend.api.models.invalidCredentials
 import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.getErrorAsObject
+import frontend.helpers.BaseTest
 import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class LoginTest : Controllers() {
+class LoginTest : BaseTest() {
 
     @Test
     @DisplayName("Login with valid credentials should return access token")

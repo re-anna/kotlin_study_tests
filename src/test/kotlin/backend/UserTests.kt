@@ -6,17 +6,18 @@ import backend.api.models.userAlreadyExists
 import backend.api.models.users.createUser.defaultUser
 import backend.api.models.users.createUser.randomUser
 import backend.api.models.users.updateUser.UpdateRequest
-import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.checkIsSuccessful
 import backend.extension.ResponseExt.Companion.getAsObject
 import backend.extension.ResponseExt.Companion.getErrorAsObject
+import frontend.helpers.BaseTest
+import infra.junit.TestContext.token
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class UserTests: Controllers() {
+class UserTests: BaseTest() {
 
     private val authHelper = AuthHelper()
 
@@ -24,7 +25,7 @@ class UserTests: Controllers() {
     @DisplayName("Create user with valid data")
     fun createUser(){
         val actualUser = user.createUser(defaultUser()).getAsObject()
-        val expectedUser = user.getUserById(token = authHelper.getAdminToken(), id = actualUser.id)
+        val expectedUser = user.getUserById(token = token, id = actualUser.id)
 
         expectedUser shouldBeEqual actualUser
     }
@@ -33,7 +34,7 @@ class UserTests: Controllers() {
     @DisplayName("Delete valid user should return 200")
     fun deleteDefaultUser(){
         val actualUser = user.createUser(defaultUser()).getAsObject()
-        val delete = user.deleteUserById(token = authHelper.getAdminToken(), id = actualUser.id)
+        val delete = user.deleteUserById(token = token, id = actualUser.id)
 
         delete.code() shouldBe 200
     }
@@ -44,9 +45,9 @@ class UserTests: Controllers() {
         val createdUser = user.createUser(randomUser()).getAsObject()
         val newPhone = "89998988998"
 
-        user.updateUserById(authHelper.getAdminToken(),createdUser.id,UpdateRequest(phoneNumber = newPhone)).getAsObject()
+        user.updateUserById(token,createdUser.id,UpdateRequest(phoneNumber = newPhone)).getAsObject()
 
-        val updatedUser = user.getUserById(authHelper.getAdminToken(),createdUser.id).getAsObject()
+        val updatedUser = user.getUserById(token,createdUser.id).getAsObject()
 
         updatedUser.phoneNumber shouldBeEqual newPhone
     }
@@ -62,7 +63,7 @@ class UserTests: Controllers() {
             "899888888}"
         )
 
-        val updatedUser = user.updateUserById(authHelper.getAdminToken(),id = newUser.id, body = updateRequest).getAsObject()
+        val updatedUser = user.updateUserById(token, id = newUser.id, body = updateRequest).getAsObject()
         val login = auth.login(updateRequest.email!!, updateRequest.password!!).getAsObject()
 
         login.accessToken.length shouldBeGreaterThan 10
@@ -76,7 +77,7 @@ class UserTests: Controllers() {
     fun updatePartialUserData(){
         val newUser = user.createUser(randomUser()).getAsObject()
         val updateRequest = UpdateRequest( password ="UpdatePassword")
-        user.updateUserById(authHelper.getAdminToken(),newUser.id,updateRequest).checkIsSuccessful()
+        user.updateUserById(token,newUser.id,updateRequest).checkIsSuccessful()
 
         val login = auth.login(newUser.email, updateRequest.password!!).getAsObject()
 

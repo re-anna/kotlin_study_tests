@@ -28,7 +28,7 @@ interface UserEndpoints {
 
     @GET("users/{id}")
     fun getUserById(
-        @Header(Headers.AUTHORIZATION) token: String,
+        @Header(Headers.AUTHORIZATION) token: String?,
         @Path("id") id: Int
     ): Call<CreateUserResponse>
 
@@ -41,7 +41,7 @@ interface UserEndpoints {
 
     @DELETE("users/{id}")
     fun deleteUserById(
-        @Header(Headers.AUTHORIZATION) token: String,
+        @Header(Headers.AUTHORIZATION) token: String?,
         @Path("id") id: Int
     ): Call<ResponseBody>
 }

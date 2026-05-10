@@ -3,9 +3,10 @@ package backend
 import backend.helpers.AuthHelper
 import backend.helpers.UserHelper
 import backend.api.models.users.createUser.randomUser
-import backend.controllers.Controllers
 import backend.extension.ResponseExt.Companion.checkIsSuccessful
 import backend.extension.ResponseExt.Companion.getAsObject
+import frontend.helpers.BaseTest
+import infra.junit.TestContext.token
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.ints.shouldBeLessThanOrEqual
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import kotlin.collections.emptyList
 
-class GetAllUsersTest: Controllers() {
+class GetAllUsersTest: BaseTest() {
 
     private val userHelper = UserHelper()
 
@@ -30,7 +31,7 @@ class GetAllUsersTest: Controllers() {
     @DisplayName("Get requested user from all users")
     fun getUserFromAllUsers(){
         val newUser = user.createUser(randomUser()).getAsObject()
-        val allUsers = user.getAllUsers(authHelper.getAdminToken()).getAsObject()
+        val allUsers = user.getAllUsers(token).getAsObject()
 
         allUsers shouldContain newUser
     }
