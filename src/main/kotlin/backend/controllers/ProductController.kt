@@ -24,7 +24,6 @@ class ProductController: Endpoints() {
         return products.getProductById(id).execute()
     }
 
-    //почему тут мы в аргументы токен засовываем и что такое продакт тут и почему мы его придумали?
     @Step("Create new product")
     fun createProduct(token: String? = authHelper.getAdminToken(), product: CreateProductsRequest): Response<CreateProductsResponse>{
         return products.postCreateProduct(token, product).execute()
