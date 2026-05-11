@@ -1,6 +1,5 @@
 package backend.api.models.products
 
-//реквесты всегда должны быть var и nullable
 data class CreateProductsRequest(
     var name: String?,
     var price: Double?,
