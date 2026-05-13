@@ -30,4 +30,11 @@ class CreateUserPopup {
         createUserBtn.click()
         return this
     }
+
+    private val createUserError: SelenideElement get() = element(byDataTestId("create-error"))
+    @Step("Get create user error text")
+    fun getErrorText(): String {
+        val text = CreateUserPopup().createUserError.text()
+        return text
+    }
 }
